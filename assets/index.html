@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Ái Như</title>
+
+</head>
+<body>
+    <audio src="../source/Yours-RaidenChanYeolEXOLeeHiChangmo-6277417.mp3" autoplay  type="audio/mpeg"></audio>
+    <video class="bk-video" src="../source/video.mp4" muted loop autoplay></video>
+    <div class="nav">
+        <h1 id="aliaswed">LIKEORDIE</h1>
+        <ul class="nav-menu">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">GAME</a></li>
+            <li><a href="#">PROJECT</a></li>
+            <li><a href="#">VLOG</a></li>
+        </ul>
+    </div>
+     <section class="showcase">
+         <header>
+             <h2 class="logo">
+                <div class="center-outer">
+                    <div class="center-inner">
+                    
+                    <div class="bubbles">
+                    <h1>HAPPY BIRTHDAY - AI NHU</h1>
+                    </div>
+                    
+                    </div>
+                    </div>
+             </h2>
+             <div class="toggle"></div>
+         </header>
+         <div class="overlay"></div>
+         <div class="content-text">
+             <h2>Nerver Stop</h2>
+             <h2>No pain No gain</h2>
+             <h2>May all your dreams</h2>
+             <h2>YEPPPPPPP</h2>
+             <a id="game" href="#">Trò chơi dành cho bạn</a>
+         </div>
+         <ul  class="Social">
+             <li><img id="face" src="../source/facebook.png" alt=""></li>
+             <li><img id="insta" src="../source/instagram.png" alt=""></li>
+            
+         </ul>
+         <div class="dino">
+             <img  id="play" src="../source/play.png" alt="">
+             <img  id="pause" src="../source/pause.png" alt="">
+             <h1 id="score">0 / 5 con chó</h1>
+             <div id="nhu"></div>
+             <div id="cho"></div>
+             
+         </div>
+        
+
+
+         <div id="typedtext"></div>  
+         
+         
+     </section>
+     <div id="gitfbox" >
+        <div class="tooltip">
+            <span class="tooltiptext">Sao yếu vậy chị, bắt lấy em đi nào !</span>
+        </div>
+        <img  id="gitf" src="../source/giftbox.png" alt="">
+     </div>
+  
+     <script>
+         window.addEventListener("load", function(event) {
+            document.getElementsByClassName('dino')[0].style.visibility='hidden';
+            document.getElementById("pause").style.visibility="hidden";
+            document.getElementById("gitfbox").style.visibility="hidden";
+         });
+         document.getElementById("game").onclick=function(){
+             document.getElementsByClassName('content-text')[0].style.visibility='hidden';
+             document.getElementsByClassName('dino')[0].style.visibility="visible";
+          
+            document.getElementById("play").style.visibility="visible";
+            document.getElementById("typedtext").style.visibility="hidden";
+
+         } 
+         var inLive;
+         const nhu=document.getElementById("nhu");
+         const cho=document.getElementById("cho");
+         function jump(){
+             if(nhu.classList!="jump"){
+                nhu.classList.add("jump");
+                setTimeout(function(){
+                    nhu.classList.remove("jump");
+                },1000);
+             }
+          
+         }
+         var checkgame=true;
+         var checkup=true;
+         function CollisonTarget(){
+             if(checkgame){
+            let topnhu=parseInt(window.getComputedStyle(nhu).getPropertyValue("top"));
+             let choleft=parseInt(window.getComputedStyle(cho).getPropertyValue("left"));
+             if(choleft<200 && choleft>30&&topnhu>-80){
+                document.getElementById("score").innerHTML="0 / 5 con chó";
+                checkgame=false;
+                document.getElementById("pause").style.visibility="hidden";
+                document.getElementById("play").style.visibility="visible";
+                cho.classList.remove("block");
+                clearInterval(inLive);   
+            }
+            if(choleft>40){
+                checkup=true;
+            }
+             if(choleft<0){
+                if(checkup) Upscore();
+            }
+          }
+         }
+         function Upscore(){
+            var sr=document.getElementById("score").innerHTML;
+            
+            document.getElementById("score").innerHTML=parseInt(sr.split("/")[0])+1 +" / 5 con chó";    
+            if(parseInt(sr.split("/")[0])+1==5){
+                    AwardGift();
+                    cho.classList.remove("block");
+                    clearInterval(inLive);
+            }
+            checkup=false;
+         }
+         function AwardGift(){
+            document.getElementById('gitfbox').style.visibility="visible";
+            document.getElementById("gitfbox").style.transform="translate("+1250+"px,"+450+"px)";
+            document.getElementsByClassName('tooltiptext')[0].innerHTML="Chúc mừng chị sinh nhật zui zẻ nha, đây là quà của chị nè heheheh";
+         }
+         document.getElementById("play").addEventListener("click",function(){
+            checkgame=true;
+            inLive=setInterval(CollisonTarget);
+            cho.classList.add("block");
+            document.getElementById("pause").style.visibility="visible";
+            document.getElementById("play").style.visibility="hidden";
+         });
+         document.getElementById("pause").addEventListener("click",function(){
+            checkgame=false;
+            document.getElementById("pause").style.visibility="hidden";
+            document.getElementById("play").style.visibility="visible";
+            cho.classList.remove("block");
+            clearInterval(inLive);
+         });
+         var hoverr=0;
+         document.getElementById("gitf").addEventListener("mouseenter",function(){
+            var w= Math.floor(Math.random() *1000)+100;
+            var h=Math.floor(Math.random() *350)+200;
+            document.getElementById("gitfbox").style.transform="translate("+w+"px,"+h+"px)";
+            if(++hoverr==1){
+               
+                document.getElementsByClassName("dino")[0].style.visibility="hidden";
+                document.getElementById("pause").style.visibility="hidden";
+                 document.getElementById("play").style.visibility="hidden";
+                document.getElementsByClassName("content-text")[0].style.visibility="visible";
+                document.getElementsByClassName('tooltiptext')[0].innerHTML="Bắt lấy em đi";
+                document.getElementById("typedtext").style.visibility="visible";
+            }
+            if(++hoverr==30){
+                document.getElementsByClassName('tooltiptext')[0].innerHTML="Sao, chưa mệt hả chị";
+            }
+         });
+         document.addEventListener("keydown",function(event){
+            jump();
+         });
+
+         document.getElementById("face").addEventListener("click",function(){
+            window.location.href = "https://www.facebook.com/pm.1409";
+         });
+         document.getElementById("insta").addEventListener("click",function(){
+            window.location.href = "https://www.instagram.com/nhuaiphan/";
+         });
+
+
+
+         jQuery(document).ready(function($){
+ 
+ // Define a blank array for the effect positions. This will be populated based on width of the title.
+ var bArray = [];
+ // Define a size array, this will be used to vary bubble sizes
+ var sArray = [4,6,8,10];
+
+ // Push the header width values to bArray
+ for (var i = 0; i < $('.bubbles').width(); i++) {
+     bArray.push(i);
+ }
+  
+ // Function to select random array element
+ // Used within the setInterval a few times
+ function randomValue(arr) {
+     return arr[Math.floor(Math.random() * arr.length)];
+ }
+
+ // setInterval function used to create new bubble every 350 milliseconds
+ setInterval(function(){
+      
+     // Get a random size, defined as variable so it can be used for both width and height
+     var size = randomValue(sArray);
+     // New bubble appeneded to div with it's size and left position being set inline
+     // Left value is set through getting a random value from bArray
+     $('.bubbles').append('<div class="individual-bubble" style="left: ' + randomValue(bArray) + 'px; width: ' + size + 'px; height:' + size + 'px;"></div>');
+      
+     // Animate each bubble to the top (bottom 100%) and reduce opacity as it moves
+     // Callback function used to remove finsihed animations from the page
+     $('.individual-bubble').animate({
+         'bottom': '100%',
+         'opacity' : '-=0.7'
+     }, 3000, function(){
+         $(this).remove()
+     }
+     );
+
+
+ }, 350);
+
+});
+
+        var aText = new Array(
+        "A wish for you on your birthday, whatever you ask you may receive,",
+        " whatever you seek you may find, whatever you wish may be fulfilled on your birthday.",
+        " Happy birthday to you!"
+        );
+        var iSpeed = 100; // time delay of print out
+        var iIndex = 0; // start printing array at this posision
+        var iArrLength = aText[0].length; // the length of the text array
+        var iScrollAt = 20; // start scrolling up at this many lines
+        
+        var iTextPos = 0; // initialise text position
+        var sContents = ''; // initialise contents variable
+        var iRow; // initialise current row
+        
+        function typewriter()
+        {
+        sContents =  ' ';
+        iRow = Math.max(0, iIndex-iScrollAt);
+        var destination = document.getElementById("typedtext");
+        
+        while ( iRow < iIndex ) {
+        sContents += aText[iRow++] + '<br />';
+        }
+        destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+        if ( iTextPos++ == iArrLength ) {
+        iTextPos = 0;
+        iIndex++;
+        if ( iIndex != aText.length ) {
+        iArrLength = aText[iIndex].length;
+        setTimeout("typewriter()", 500);
+        }
+        } else {
+        setTimeout("typewriter()", iSpeed);
+        }
+        }
+
+
+    typewriter();
+
+
+     </script>
+</body>
+</html>
